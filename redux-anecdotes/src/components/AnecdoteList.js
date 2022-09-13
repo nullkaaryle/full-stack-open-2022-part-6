@@ -4,7 +4,10 @@ import { addVote } from '../reducers/anecdoteReducer'
 
 const Anecdotes = () => {
   const dispatch = useDispatch()
-  const anecdotes = useSelector(state => state)
+
+  const anecdotesList = useSelector(({ anecdotes }) => {
+    return anecdotes
+  })
 
   const vote = (id) => {
     dispatch(addVote(id))
@@ -12,8 +15,7 @@ const Anecdotes = () => {
 
   return (
     <div>
-
-      {anecdotes.map(anecdote =>
+      {anecdotesList.map(anecdote =>
         <div key={anecdote.id}>
 
           <div>
@@ -27,9 +29,9 @@ const Anecdotes = () => {
             </button>
           </div>
 
-
         </div>
       )}
+
 
     </div >
   )
