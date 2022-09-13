@@ -27,6 +27,14 @@ export const addVote = (id) => {
   }
 }
 
+export const addAnecdote = (content) => {
+  return {
+    type: 'ADD_ANECDOTE',
+    data: { content }
+  }
+}
+
+
 
 const anecdoteReducer = (state = initialState, action) => {
   console.log('state now: ', state)
@@ -38,13 +46,22 @@ const anecdoteReducer = (state = initialState, action) => {
       const anecdoteToChange = state.find(anecdote => anecdote.id === votedAnecdoteId)
       const changedAnecdote = { ...anecdoteToChange, votes: anecdoteToChange.votes + 1 }
 
-      const updatedAnecdotes = state.map(anecdote =>
+      return state.map(anecdote =>
         anecdote.id !== votedAnecdoteId ?
           anecdote :
           changedAnecdote
       )
 
-      return updatedAnecdotes
+    case 'ADD_ANECDOTE':
+      const anecdoteContent = action.data.content
+
+      const newAnecdote = {
+        content: anecdoteContent,
+        id: getId(),
+        votes: 0
+      }
+
+      return [...state, newAnecdote]
 
     default:
       return state
