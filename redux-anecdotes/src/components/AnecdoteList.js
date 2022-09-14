@@ -3,14 +3,13 @@ import { addVote } from '../reducers/anecdoteReducer'
 import { createNotification, deleteNotification } from '../reducers/notificationReducer'
 
 
-
 const Anecdotes = () => {
   const dispatch = useDispatch()
 
-  const anecdotesList = useSelector(({ anecdotes }) => {
-    return anecdotes
+  const anecdotesList = useSelector(({ anecdotes, filter }) => {
+    return anecdotes.filter(anecdote =>
+      (anecdote.content.toLowerCase().includes(filter.toLowerCase())))
   })
-
 
   const vote = (id, content) => {
     dispatch(addVote(id))
@@ -25,13 +24,18 @@ const Anecdotes = () => {
     }, 5000)
   }
 
+  const style = {
+    marginBottom: 10
+  }
+
   return (
     <div>
+
       {anecdotesList.map(anecdote =>
-        <div key={anecdote.id}>
+        <div key={anecdote.id} style={style}>
 
           <div>
-            {anecdote.content}
+            <i> {anecdote.content} </i>
           </div>
 
           <div>
@@ -43,7 +47,6 @@ const Anecdotes = () => {
 
         </div>
       )}
-
 
     </div >
   )
