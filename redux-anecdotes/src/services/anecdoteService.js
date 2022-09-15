@@ -4,7 +4,8 @@ const baseUrl = 'http://localhost:3001/anecdotes'
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
-
+// for sorting the anecdotes here we could use axios' sort method:
+//    const response = await axios.get(baseUrl + '?_sort=votes,content&_order=desc,asc')
 const getAll = async () => {
   const response = await axios.get(baseUrl)
   return response.data
@@ -18,10 +19,17 @@ const createNew = async (content) => {
   return response.data
 }
 
+const updateOne = async (object) => {
+  const id = object.id
+  const response = await axios.put(baseUrl + '/' + id, object)
+  return response.data
+}
+
 
 const anecdoteService = {
   getAll,
-  createNew
+  createNew,
+  updateOne
 }
 
 export default anecdoteService
