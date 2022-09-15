@@ -19,7 +19,7 @@ const AnecdoteForm = (props) => {
 
   const notify = (content) => {
     const message = 'New anecdote created: '
-    props.setNotification(message, content, 3)
+    props.setNotification(message, content, 5)
   }
 
 

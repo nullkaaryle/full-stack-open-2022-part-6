@@ -20,7 +20,7 @@ const Anecdotes = (props) => {
 
   const notify = (content) => {
     const message = 'You voted for: '
-    props.setNotification(message, content, 3)
+    props.setNotification(message, content, 5)
   }
 
   return (
