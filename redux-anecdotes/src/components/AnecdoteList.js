@@ -1,8 +1,14 @@
+// using older Redux 'connect' here instead of recommended hooks API style,
+// that uses 'useDispatch' and 'useSelector'
+// See earlier commits to see the hooks style of the components.
 import { connect } from 'react-redux'
+
+// importing actions from reducers
 import { addVote } from '../reducers/anecdoteReducer'
 import { setNotification } from '../reducers/notificationReducer'
 
 
+// the anecdotes state is now in the props after mapping!
 const Anecdotes = (props) => {
 
   const style = {
@@ -47,6 +53,8 @@ const Anecdotes = (props) => {
   )
 }
 
+// Returns the state of 'anecdotes', filtered and sorted.
+// We give the anecdotes state as parameter to the component.
 const mapStateToProps = (state) => {
   return {
     anecdotes: state.anecdotes
@@ -59,10 +67,15 @@ const mapStateToProps = (state) => {
   }
 }
 
+// these action creators can be used for dispatching in this component
 const mapDispatchToProps = {
   addVote,
   setNotification
 }
 
+// The connect() function connects the component to the store.
+// In other words, connect() wraps the component with additional properties
+// and then returns this new "connected" component
+// Here, component Anecdotes is wrapped with suitable action creators and state.
 export default connect(mapStateToProps, mapDispatchToProps)(Anecdotes)
 
